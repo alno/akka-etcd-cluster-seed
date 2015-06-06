@@ -1,6 +1,6 @@
 package akka.cluster.seed
 
-import scala.concurrent.Await
+import scala.concurrent.{ Await, Future }
 import scala.concurrent.duration._
 import akka.actor._
 import akka.cluster.Cluster
