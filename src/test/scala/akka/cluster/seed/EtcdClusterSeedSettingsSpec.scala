@@ -21,7 +21,7 @@ class EtcdClusterSeedSettingsSpec extends TestKit(ActorSystem("test", EtcdCluste
 object EtcdClusterSeedSettingsSpec {
   val config: Config = ConfigFactory.parseString("""
          akka.cluster.seed.etcd {
-           seed-ttl = 30
+           seed-ttl = 30s
          }
        """)
 }

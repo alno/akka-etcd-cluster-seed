@@ -17,7 +17,8 @@ object EtcdClusterSeedConfig extends MultiNodeConfig {
   commonConfig(ConfigFactory.parseString("""
       akka.actor.provider = "akka.cluster.ClusterActorRefProvider"
       akka.loggers = ["akka.event.slf4j.Slf4jLogger"]
-      akka.cluster.seed.etcd.client-timeout = 30
+      akka.cluster.seed.etcd.client-timeout = 30s
+      akka.cluster.seed.etcd.path = akka_test/seeds
       akka.test.single-expect-default = 30s
     """))
 }

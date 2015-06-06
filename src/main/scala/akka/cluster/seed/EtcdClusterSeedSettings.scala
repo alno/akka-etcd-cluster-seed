@@ -1,5 +1,6 @@
 package akka.cluster.seed
 
+import java.util.concurrent.TimeUnit
 import scala.concurrent.duration._
 import akka.actor._
 
@@ -10,8 +11,8 @@ class EtcdClusterSeedSettings(system: ActorSystem) {
   val url = conf.getString("url")
   val path = conf.getString("path")
 
-  val seedTtl = conf.getInt("seed-ttl") seconds
+  val seedTtl = conf.getDuration("seed-ttl", TimeUnit.MILLISECONDS).millis
 
-  val clientTimeout = conf.getInt("client-timeout") seconds
+  val clientTimeout = conf.getDuration("client-timeout", TimeUnit.MILLISECONDS).millis
 
 }
