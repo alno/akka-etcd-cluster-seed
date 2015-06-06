@@ -12,4 +12,6 @@ class EtcdClusterSeedSettings(system: ActorSystem) {
 
   val seedTtl = conf.getInt("seed-ttl") seconds
 
+  val clientTimeout = conf.getInt("client-timeout") seconds
+
 }

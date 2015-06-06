@@ -25,11 +25,10 @@ class EtcdClusterSeed(system: ExtendedActorSystem) extends Extension {
   val selfAddress = cluster.selfAddress
 
   private val etcdClient = new EtcdClient(settings.url)(system)
-  private val etcdTimeout = 5 second
   private val etcdKey = s"${settings.path}/${selfAddress.hostPort}"
 
   // Register first seed
-  Await.result(registerSeed(), etcdTimeout)
+  Await.result(registerSeed(), settings.clientTimeout)
 
   // Reregister seed every ttl/2
   system.scheduler.schedule(settings.seedTtl / 2, settings.seedTtl / 2)(registerSeed())(system.dispatcher)
@@ -52,7 +51,7 @@ class EtcdClusterSeed(system: ExtendedActorSystem) extends Extension {
   }
 
   def findSeedNodes: List[Address] = {
-    val response = Await.result(etcdClient.listDir(settings.path, false), etcdTimeout)
+    val response = Await.result(etcdClient.listDir(settings.path, false), settings.clientTimeout)
 
     for {
       nodes <- response.node.nodes.toList
