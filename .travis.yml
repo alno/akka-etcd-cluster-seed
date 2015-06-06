@@ -1,0 +1,19 @@
+language: scala
+scala:
+  - 2.11.6
+
+before_script:
+  - wget https://github.com/coreos/etcd/releases/download/v2.0.11/etcd-v2.0.11-linux-amd64.tar.gz
+  - tar xzvf etcd-v2.0.11-linux-amd64.tar.gz
+  - cd etcd-v2.0.11-linux-amd64
+  - ./etcd &
+
+after_script:
+  # Tricks to avoid unnecessary cache updates
+  - find $HOME/.sbt -name "*.lock" | xargs rm
+  - find $HOME/.ivy2 -name "ivydata-*.properties" | xargs rm
+
+cache:
+  directories:
+    - $HOME/.ivy2/cache
+    - $HOME/.sbt/boot/
